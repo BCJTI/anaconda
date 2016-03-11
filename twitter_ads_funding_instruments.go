@@ -4,7 +4,7 @@ import(
 	"time"
 )
 
-type FundingInstrument struct {
+type FundingInstruments struct {
 	Data [] struct{
 		AccountId                                 string                      `json:"account_id"`
 		Cancelled                                 bool                        `json:"cancelled"`
@@ -24,9 +24,9 @@ type FundingInstrument struct {
 	DataType                                    string                      `json:"data_type"`
 	Request                                     struct{
 		Params                                       struct{
-			AccountId   string     `json:"account_id"`
+			AccountId   string              `json:"account_id"`
 			FundingInstrumentIds []string   `json:"funding_instrument_ids"`
-			WithDeleted bool       `json:"with_deleted"`
+			WithDeleted bool                `json:"with_deleted"`
 		} `json:"params"`
 	} `json:"request"`
 	TotalCount                                   int64                      `json:"total_count"`

@@ -4,7 +4,7 @@ import(
 	"time"
 )
 
-type Campaign struct {
+type Campaigns struct {
 	Data [] struct {
 		Name                                     string                 `json:"name"`
 		CreatedAt                                time.Time              `json:"created_at"`
