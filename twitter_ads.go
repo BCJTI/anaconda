@@ -172,7 +172,7 @@ type VideoModel struct {
 }
 
 type Stats struct {
-	DataType                string                  `json:"data_type"`
+	Data                    interface{}
 	TimeSeriesLength        int64                   `json:"time_series_length"`
 	Pagination
 }
