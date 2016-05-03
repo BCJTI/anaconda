@@ -1,6 +1,9 @@
 package anaconda
 
-import "time"
+import (
+	"time"
+	"github.com/guregu/null"
+)
 
 const (
     AdsUrl = "https://ads-api.twitter.com/1"
@@ -57,7 +60,7 @@ type CampaignModel struct {
 	TotalBudget             int64                   `json:"total_budget_amount_local_micro"`
 	DailyBudget             int64                   `json:"daily_budget_amount_local_micro"`
 	StartTime               time.Time               `json:"start_time"`
-	EndTime                 time.Time               `json:"end_time"`
+	EndTime                 null.Time               `json:"end_time"`
 	CreatedAt               time.Time               `json:"created_at"`
 	UpdatedAt               time.Time               `json:"updated_at"`
 }
