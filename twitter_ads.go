@@ -175,7 +175,34 @@ type VideoModel struct {
 }
 
 type Stats struct {
-	Data                    interface{}
+	Data                    interface{}             `json:"data"`
 	TimeSeriesLength        int64                   `json:"time_series_length"`
+	Pagination
+}
+
+type Data struct {
+	Id                      int64                   `json:"id"`
+	AccountId               string                  `json:"account_id"`
+	URL                     string                  `json:"url"`
+	Entity                  string                  `json:"entity"`
+	EntityIds               []string                `json:"entity_ids"`
+	Placement               string                  `json:"placement"`
+	Granularity             string                  `json:"granularity"`
+	SegmentationType        string                  `json:"segmentation_type"`
+	Country                 string                  `json:"country"`
+	Platform                string                  `json:"platform"`
+	Status                  string                  `json:"status"`
+	MetricGroups            []string                `json:"metric_groups"`
+	StartTime               time.Time               `json:"start_time"`
+	EndTime                 time.Time               `json:"end_time"`
+}
+
+type Job struct {
+	Data                    Data                    `json:"data"`
+	Pagination
+}
+
+type Jobs struct {
+	Data                    []Data                  `json:"data"`
 	Pagination
 }
