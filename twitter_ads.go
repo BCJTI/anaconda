@@ -1,6 +1,7 @@
 package anaconda
 
 import (
+	"encoding/json"
 	"time"
 	"github.com/guregu/null"
 )
@@ -174,18 +175,12 @@ type VideoModel struct {
 	UpdatedAt               time.Time               `json:"updated_at"`
 }
 
-type Stats struct {
-	Data                    interface{}             `json:"data"`
-	TimeSeriesLength        int64                   `json:"time_series_length"`
-	Pagination
-}
-
 type Data struct {
 	Id                      int64                   `json:"id"`
 	AccountId               string                  `json:"account_id"`
 	URL                     string                  `json:"url"`
 	Entity                  string                  `json:"entity"`
-	EntityIds               []string                `json:"entity_ids"`
+	EntityIds               []json.Number           `json:"entity_ids"`
 	Placement               string                  `json:"placement"`
 	Granularity             string                  `json:"granularity"`
 	SegmentationType        string                  `json:"segmentation_type"`
