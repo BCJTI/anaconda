@@ -12,41 +12,49 @@ type StatsModel struct {
 }
 
 type Metrics struct {
-	AppClicks               string              `json:"app_clicks"`
+	Metric                  Metric              `json:"metrics"`
+}
+
+type Metric struct {
+	AppClicks               []int64             `json:"app_clicks"`
 	BilledCharge            []int64             `json:"billed_charge_local_micro"`
 	BilledEngagements       []int64             `json:"billed_engagements"`
-	CardEngagements         string              `json:"card_engagements"`
-	CarouselSwipes          string              `json:"carousel_swipes"`
+	CardEngagements         []int64             `json:"card_engagements"`
+	CarouselSwipes          []int64             `json:"carousel_swipes"`
 	Clicks                  []int64             `json:"clicks"`
-	ConversionCustom        MetricType          `json:"conversion_custom"`
-	ConversionDownloads     MetricType          `json:"conversion_downloads"`
-	ConversionPurchases     MetricType          `json:"conversion_purchases"`
-	ConversionSignUps       MetricType          `json:"conversion_sign_ups"`
-	ConversionSiteVisits    MetricType          `json:"conversion_site_visits"`
 	Engagements             []int64             `json:"engagements"`
 	Follows                 []int64             `json:"follows"`
 	Impressions             []int64             `json:"impressions"`
 	Likes                   []int64             `json:"likes"`
 	MediaViews              []int64             `json:"media_views"`
-	Mobile                  MobileType
-	QualifiedImpressions    string              `json:"qualified_impressions"`
+	QualifiedImpressions    []int64             `json:"qualified_impressions"`
 	Replies                 []int64             `json:"replies"`
 	Retweets                []int64             `json:"retweets"`
-	Segment                 SegmentType         `json:"segment"`
 	UrlClicks               []int64             `json:"url_clicks"`
-	Video                   VideoType
+	Mobile                  MobileType          `json:"-"`
+	Segment                 SegmentType         `json:"segment"`
+	Video                   VideoType           `json:"-"`
+	Web                     WebType             `json:"-"`
 }
 
-type MetricType struct {
-	Metric                  string              `json:"metric"`
-	OrderQuantity           string              `json:"order_quantity"`
-	SaleAmount              string              `json:"sale_amount"`
+type WebType struct {
+	ConversionCustom        ConversionType      `json:"conversion_custom"`
+	ConversionDownloads     ConversionType      `json:"conversion_downloads"`
+	ConversionPurchases     ConversionType      `json:"conversion_purchases"`
+	ConversionSignUps       ConversionType      `json:"conversion_sign_ups"`
+	ConversionSiteVisits    ConversionType      `json:"conversion_site_visits"`
+}
+
+type ConversionType struct {
+	Metric                  []int64             `json:"metric"`
+	OrderQuantity           []int64             `json:"order_quantity"`
+	SaleAmount              []int64             `json:"sale_amount"`
 }
 
 type MobileType struct {
 	AchievementsUnlocked    MobileConversion    `json:"mobile_conversion_achievements_unlocked"`
 	AddToCarts              MobileConversion    `json:"mobile_conversion_add_to_carts"`
-	AddToWishlists          MobileConversion    `json:"mobile_conversion_add_to_wishlists"`
+	AddToWishLists          MobileConversion    `json:"mobile_conversion_add_to_wishlists"`
 	CheckoutsInitiated      MobileConversion    `json:"mobile_conversion_checkouts_initiated"`
 	ContentViews            MobileConversion    `json:"mobile_conversion_content_views"`
 	Installs                MobileConversion    `json:"mobile_conversion_installs"`
@@ -66,11 +74,11 @@ type MobileType struct {
 }
 
 type MobileConversion struct {
-	Assisted                string              `json:"assisted"`
-	OrderQuantity           string              `json:"order_quantity"`
-	PostEngagement          string              `json:"post_engagement"`
-	PostView                string              `json:"post_view"`
-	SaleAmount              string              `json:"sale_amount"`
+	Assisted                []int64             `json:"assisted"`
+	OrderQuantity           []int64             `json:"order_quantity"`
+	PostEngagement          []int64             `json:"post_engagement"`
+	PostView                []int64             `json:"post_view"`
+	SaleAmount              []int64             `json:"sale_amount"`
 }
 
 type VideoType struct {
