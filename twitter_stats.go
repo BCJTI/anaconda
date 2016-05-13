@@ -1,9 +1,16 @@
 package anaconda
 
+import (
+	"time"
+	"encoding/json"
+)
+
 type Stats struct {
 	Data                    []StatsModel        `json:"data"`
-	TimeSeriesLength        int64               `json:"time_series_length"`
-	Pagination
+	DataType                string              `json:"data_type"`
+	NextCursor              string              `json:"next_cursor"`
+	TotalCount              int64               `json:"total_count"`
+	Request                 StatsRequest        `json:"request"`
 }
 
 type StatsModel struct {
@@ -11,8 +18,26 @@ type StatsModel struct {
 	IdData                  []Metrics           `json:"id_data"`
 }
 
+type StatsRequest struct {
+	Params                  StatsParams         `json:"params"`
+}
+
+type StatsParams struct {
+	Entity                  string              `json:"entity"`
+	EntityIds               []json.Number       `json:"entity_ids"`
+	Segmentation            string              `json:"segmentation_type"`
+	Placement               string              `json:"placement"`
+	Granularity             string              `json:"granularity"`
+	Platform                string              `json:"platform"`
+	Country                 string              `json:"country"`
+	MetricGroups            []string            `json:"metric_groups"`
+	StartTime               time.Time           `json:"start_time"`
+	EndTime                 time.Time           `json:"end_time"`
+}
+
 type Metrics struct {
 	Metric                  Metric              `json:"metrics"`
+	Segment                 SegmentType         `json:"segment"`
 }
 
 type Metric struct {
@@ -32,7 +57,6 @@ type Metric struct {
 	Retweets                []int64             `json:"retweets"`
 	UrlClicks               []int64             `json:"url_clicks"`
 	Mobile                  MobileType          `json:"-"`
-	Segment                 SegmentType         `json:"segment"`
 	Video                   VideoType           `json:"-"`
 	Web                     WebType             `json:"-"`
 }
