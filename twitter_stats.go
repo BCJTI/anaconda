@@ -56,12 +56,12 @@ type Metric struct {
 	Replies                 []int64             `json:"replies"`
 	Retweets                []int64             `json:"retweets"`
 	UrlClicks               []int64             `json:"url_clicks"`
-	Mobile                  MobileType          `json:"-"`
-	Video                   VideoType           `json:"-"`
-	Web                     WebType             `json:"-"`
+	MobileMetrics
+	VideoMetrics
+	WebMetrics
 }
 
-type WebType struct {
+type WebMetrics struct {
 	ConversionCustom        ConversionType      `json:"conversion_custom"`
 	ConversionDownloads     ConversionType      `json:"conversion_downloads"`
 	ConversionPurchases     ConversionType      `json:"conversion_purchases"`
@@ -75,7 +75,7 @@ type ConversionType struct {
 	SaleAmount              []int64             `json:"sale_amount"`
 }
 
-type MobileType struct {
+type MobileMetrics struct {
 	AchievementsUnlocked    MobileConversion    `json:"mobile_conversion_achievements_unlocked"`
 	AddToCarts              MobileConversion    `json:"mobile_conversion_add_to_carts"`
 	AddToWishLists          MobileConversion    `json:"mobile_conversion_add_to_wishlists"`
@@ -105,7 +105,7 @@ type MobileConversion struct {
 	SaleAmount              []int64             `json:"sale_amount"`
 }
 
-type VideoType struct {
+type VideoMetrics struct {
 	ContentStarts           []int64             `json:"video_content_starts"`
 	CtaClicks               []int64             `json:"video_cta_clicks"`
 	MrcViews                []int64             `json:"video_mrc_views"`
