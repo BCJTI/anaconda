@@ -114,6 +114,7 @@ type VideoMetrics struct {
 	Views50                 []int64             `json:"video_views_50"`
 	Views75                 []int64             `json:"video_views_75"`
 	Views100                []int64             `json:"video_views_100"`
+	Views3s100Pct           []int64             `json:"video_3s100pct_views"`
 }
 
 type SegmentType struct{
