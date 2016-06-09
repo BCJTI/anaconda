@@ -3,7 +3,7 @@ package anaconda
 import (
 	"encoding/json"
 	"time"
-	"gopkg.in/guregu/null.v3"
+	"github.com/guregu/null"
 )
 
 const (
