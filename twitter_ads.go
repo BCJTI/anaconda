@@ -34,7 +34,7 @@ type AccountModel struct {
 	Salt                    string                  `json:"salt"`
 	Deleted                 bool                    `json:"deleted"`
 	Timezone                string                  `json:"timezone"`
-	TimezoneSwitchAt        time.Time               `json:"timezone_switch_at"`
+	TimezoneSwitchAt        null.Time               `json:"timezone_switch_at"`
 	CreatedAt               time.Time               `json:"created_at"`
 	UpdatedAt               time.Time               `json:"updated_at"`
 }
