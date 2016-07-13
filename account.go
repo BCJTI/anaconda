@@ -21,3 +21,11 @@ func (a TwitterApi) GetSelf(v url.Values) (u User, err error) {
 	a.queryQueue <- query{a.baseUrl + "/account/verify_credentials.json", v, &u, _GET, response_ch}
 	return u, (<-response_ch).err
 }
+
+// Returns settings for the authenticating user.
+func (a TwitterApi) GetAccountSettings(v url.Values) (s Settings, err error) {
+	v = cleanValues(v)
+	response_ch := make(chan response)
+	a.queryQueue <- query{a.baseUrl + "/account/settings.json", v, &s, _GET, response_ch}
+	return s, (<-response_ch).err
+}
