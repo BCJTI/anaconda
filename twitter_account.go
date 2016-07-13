@@ -29,5 +29,5 @@ type SleepTime struct {
 type TimeZone struct {
 	Name                        string              `json:"name"`
 	TzInfoName                  string              `json:"tzinfo_name"`
-	UtcOffset                   json.Number         `json:"utc_offset"`
+	UtcOffset                   int64               `json:"utc_offset"`
 }
