@@ -151,6 +151,24 @@ type PromotedTweetModel struct {
 	UpdatedAt               time.Time               `json:"updated_at"`
 }
 
+type TargetingCriteria struct {
+	Data                    []TargetingCriteriaModel`json:"data"`
+	Pagination
+}
+
+type TargetingCriteriaModel struct {
+	Id                      string                  `json:"id"`
+	Name                    string                  `json:"name"`
+	AccountId               string                  `json:"account_id"`
+	LineItemId              string                  `json:"line_item_id"`
+	TargetingType           string                  `json:"targeting_type"`
+	TargetingValue          json.Number             `json:"targeting_value"`
+	LocationType            string                  `json:"location_type"`
+	Deleted                 bool                    `json:"deleted"`
+	UpdatedAt               time.Time               `json:"updated_at"`
+	CreatedAt               time.Time               `json:"created_at"`
+}
+
 type AccountVideo struct {
 	Data                    VideoModel              `json:"data"`
 	Pagination

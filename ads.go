@@ -71,6 +71,12 @@ func (a TwitterApi) GetPromotedTweetById(accountid, tweetid string, values url.V
 	return tweet, (<-response_ch).err
 }
 
+func (a TwitterApi) GetTargetingCriteria(accountid string, values url.Values) (tc TargetingCriteria, err error) {
+	response_ch := make(chan response)
+	a.queryQueue <- query{fmt.Sprintf("%s/accounts/%s/targeting_criteria", AdsUrl, accountid), values, &tc, _GET, response_ch}
+	return tc, (<-response_ch).err
+}
+
 func (a TwitterApi) GetAccountVideos(accountid string, values url.Values) (videos AccountVideos, err error) {
 	response_ch := make(chan response)
 	a.queryQueue <- query{fmt.Sprintf("%s/accounts/%s/videos", AdsUrl, accountid), values, &videos, _GET, response_ch}

@@ -1,9 +1,10 @@
 package anaconda
 
 import (
-	"fmt"
 	"compress/gzip"
 	"encoding/json"
+	"errors"
+	"fmt"
 	"net/http"
 	"net/url"
 )
@@ -28,11 +29,19 @@ func (a TwitterApi) ParseStatsJobs(url string) (stats Stats, err error) {
 	)
 
 	if resp, err = http.Get(url); err == nil {
+
 		defer resp.Body.Close()
+
+		if resp.StatusCode != http.StatusOK {
+			err = errors.New(resp.Status)
+			return
+		}
+
 		if archive, err = gzip.NewReader(resp.Body); err == nil {
 			defer archive.Close()
 			err = json.NewDecoder(archive).Decode(&stats)
 		}
+
 	}
 
 	return

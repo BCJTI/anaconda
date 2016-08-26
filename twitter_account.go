@@ -1,7 +1,6 @@
 package anaconda
 
 import (
-	"encoding/json"
 	"github.com/guregu/null"
 )
 
