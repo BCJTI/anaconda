@@ -81,17 +81,21 @@ type MobileMetrics struct {
 	AddToWishLists          MobileConversion    `json:"mobile_conversion_add_to_wishlists"`
 	CheckoutsInitiated      MobileConversion    `json:"mobile_conversion_checkouts_initiated"`
 	ContentViews            MobileConversion    `json:"mobile_conversion_content_views"`
+	Downloads               MobileConversion    `json:"mobile_conversion_downloads"`
 	Installs                MobileConversion    `json:"mobile_conversion_installs"`
 	Invites                 MobileConversion    `json:"mobile_conversion_invites"`
 	KeyPageViews            MobileConversion    `json:"mobile_conversion_key_page_views"`
 	LevelsAchieved          MobileConversion    `json:"mobile_conversion_levels_achieved"`
 	Logins                  MobileConversion    `json:"mobile_conversion_logins"`
 	PaymentInfoAdditions    MobileConversion    `json:"mobile_conversion_payment_info_additions"`
+	Purchases               MobileConversion    `json:"mobile_conversion_purchases"`
 	Rates                   MobileConversion    `json:"mobile_conversion_rates"`
 	ReEngages               MobileConversion    `json:"mobile_conversion_re_engages"`
 	Reservations            MobileConversion    `json:"mobile_conversion_reservations"`
 	Searches                MobileConversion    `json:"mobile_conversion_searches"`
 	Shares                  MobileConversion    `json:"mobile_conversion_shares"`
+	SignUps                 MobileConversion    `json:"mobile_conversion_sign_ups"`
+	SiteVisits              MobileConversion    `json:"mobile_conversion_site_visits"`
 	SpentCredits            MobileConversion    `json:"mobile_conversion_spent_credits"`
 	TutorialsCompleted      MobileConversion    `json:"mobile_conversion_tutorials_completed"`
 	Updates                 MobileConversion    `json:"mobile_conversion_updates"`
