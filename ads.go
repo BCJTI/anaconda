@@ -71,6 +71,18 @@ func (a TwitterApi) GetPromotedTweetById(accountid, tweetid string, values url.V
 	return tweet, (<-response_ch).err
 }
 
+func (a TwitterApi) GetMediaCreatives(accountid string, values url.Values) (creatives MediaCreatives, err error) {
+	response_ch := make(chan response)
+	a.queryQueue <- query{fmt.Sprintf("%s/accounts/%s/media_creatives", AdsUrl, accountid), values, &creatives, _GET, response_ch}
+	return creatives, (<-response_ch).err
+}
+
+func (a TwitterApi) GetMediaCreativeById(accountid, creativeid string, values url.Values) (creative MediaCreative, err error) {
+	response_ch := make(chan response)
+	a.queryQueue <- query{fmt.Sprintf("%s/accounts/%s/media_creatives/%s", AdsUrl, accountid, creativeid), values, &creative, _GET, response_ch}
+	return creative, (<-response_ch).err
+}
+
 func (a TwitterApi) GetTargetingCriteria(accountid string, values url.Values) (tc TargetingCriteria, err error) {
 	response_ch := make(chan response)
 	a.queryQueue <- query{fmt.Sprintf("%s/accounts/%s/targeting_criteria", AdsUrl, accountid), values, &tc, _GET, response_ch}
@@ -92,7 +104,7 @@ func (a TwitterApi) GetAccountVideoById(accountid, videoid string, values url.Va
 func (a TwitterApi) GetAllCampaigns(accountid string, values url.Values) (campaigns Campaigns, err error) {
 
 	// get first fetch
-	if campaigns, err = a.GetCampaigns(accountid,values); err != nil {
+	if campaigns, err = a.GetCampaigns(accountid, values); err != nil {
 		return
 	}
 
@@ -103,10 +115,11 @@ func (a TwitterApi) GetAllCampaigns(accountid string, values url.Values) (campai
 	for cursor != "" {
 
 		// add cursor to query string
-		values.Add("cursor",campaigns.NextCursor)
+		values.Add("cursor", campaigns.NextCursor)
 
 		// get next fetch
-		next, e := a.GetCampaigns(accountid,values); if e != nil {
+		next, e := a.GetCampaigns(accountid, values)
+		if e != nil {
 			return Campaigns{}, e
 		}
 
@@ -129,7 +142,7 @@ func (a TwitterApi) GetAllCampaigns(accountid string, values url.Values) (campai
 func (a TwitterApi) GetAllFundingInstruments(accountid string, values url.Values) (instruments FundingInstruments, err error) {
 
 	// get first fetch
-	if instruments, err = a.GetFundingInstruments(accountid,values); err != nil {
+	if instruments, err = a.GetFundingInstruments(accountid, values); err != nil {
 		return
 	}
 
@@ -140,10 +153,11 @@ func (a TwitterApi) GetAllFundingInstruments(accountid string, values url.Values
 	for cursor != "" {
 
 		// add cursor to query string
-		values.Add("cursor",instruments.NextCursor)
+		values.Add("cursor", instruments.NextCursor)
 
 		// get next fetch
-		next, e := a.GetFundingInstruments(accountid,values); if e != nil {
+		next, e := a.GetFundingInstruments(accountid, values)
+		if e != nil {
 			return FundingInstruments{}, e
 		}
 
@@ -166,7 +180,7 @@ func (a TwitterApi) GetAllFundingInstruments(accountid string, values url.Values
 func (a TwitterApi) GetAllLineItems(accountid string, values url.Values) (items LineItems, err error) {
 
 	// get first fetch
-	if items, err = a.GetLineItems(accountid,values); err != nil {
+	if items, err = a.GetLineItems(accountid, values); err != nil {
 		return
 	}
 
@@ -177,10 +191,11 @@ func (a TwitterApi) GetAllLineItems(accountid string, values url.Values) (items 
 	for cursor != "" {
 
 		// add cursor to query string
-		values.Add("cursor",items.NextCursor)
+		values.Add("cursor", items.NextCursor)
 
 		// get next fetch
-		next, e := a.GetLineItems(accountid,values); if e != nil {
+		next, e := a.GetLineItems(accountid, values)
+		if e != nil {
 			return LineItems{}, e
 		}
 
@@ -203,7 +218,7 @@ func (a TwitterApi) GetAllLineItems(accountid string, values url.Values) (items 
 func (a TwitterApi) GetAllPromotedTweets(accountid string, values url.Values) (tweets PromotedTweets, err error) {
 
 	// get first fetch
-	if tweets, err = a.GetPromotedTweets(accountid,values); err != nil {
+	if tweets, err = a.GetPromotedTweets(accountid, values); err != nil {
 		return
 	}
 
@@ -214,10 +229,11 @@ func (a TwitterApi) GetAllPromotedTweets(accountid string, values url.Values) (t
 	for cursor != "" {
 
 		// add cursor to query string
-		values.Add("cursor",tweets.NextCursor)
+		values.Add("cursor", tweets.NextCursor)
 
 		// get next fetch
-		next, e := a.GetPromotedTweets(accountid,values); if e != nil {
+		next, e := a.GetPromotedTweets(accountid, values)
+		if e != nil {
 			return PromotedTweets{}, e
 		}
 
@@ -226,6 +242,44 @@ func (a TwitterApi) GetAllPromotedTweets(accountid string, values url.Values) (t
 
 		// set pagination
 		tweets.Pagination = next.Pagination
+
+		// set next cursor
+		cursor = next.NextCursor
+
+		// del previous cursor from query string
+		values.Del("cursor")
+	}
+
+	return
+}
+
+func (a TwitterApi) GetAllMediaCreatives(accountid string, values url.Values) (creatives MediaCreatives, err error) {
+
+	// get first fetch
+	if creatives, err = a.GetMediaCreatives(accountid, values); err != nil {
+		return
+	}
+
+	// init cursor variable
+	cursor := creatives.NextCursor
+
+	// get all data
+	for cursor != "" {
+
+		// add cursor to query string
+		values.Add("cursor", creatives.NextCursor)
+
+		// get next fetch
+		next, e := a.GetMediaCreatives(accountid, values)
+		if e != nil {
+			return MediaCreatives{}, e
+		}
+
+		// append data
+		creatives.Data = append(creatives.Data, next.Data...)
+
+		// set pagination
+		creatives.Pagination = next.Pagination
 
 		// set next cursor
 		cursor = next.NextCursor
