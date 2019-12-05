@@ -24,7 +24,7 @@ func (a TwitterApi) GetStatsJobs(idaccount string, values url.Values) (jobs Jobs
 func (a TwitterApi) ParseStatsJobs(url string) (stats Stats, err error) {
 
 	var (
-		resp *http.Response
+		resp    *http.Response
 		archive *gzip.Reader
 	)
 
